@@ -37,6 +37,7 @@
 *.hex
 
 # Debug files
+.DS_Store
 *.dSYM/
 *.su
 *.idb
