@@ -293,9 +293,13 @@ it will print a diagnostic message and abort (via the \f(CW\*(C`assert\*(C'\fR m
 so \f(CW\*(C`NDEBUG\*(C'\fR will disable this checking): these are programming errors in
 the libev caller and need to be fixed there.
 .PP
-Libev also has a few internal error-checking \f(CW\*(C`assert\*(C'\fRions, and also has
-extensive consistency checking code. These do not trigger under normal
-circumstances, as they indicate either a bug in libev or worse.
+Via the \f(CW\*(C`EV_FREQUENT\*(C'\fR macro you can compile in and/or enable extensive
+consistency checking code inside libev that can be used to check for
+internal inconsistencies, suually caused by application bugs.
+.PP
+Libev also has a few internal error-checking \f(CW\*(C`assert\*(C'\fRions. These do not
+trigger under normal circumstances, as they indicate either a bug in libev
+or worse.
 .SH "GLOBAL FUNCTIONS"
 .IX Header "GLOBAL FUNCTIONS"
 These functions can be called anytime, even before initialising the
@@ -5083,6 +5087,9 @@ called. If set to \f(CW2\fR, then the internal verification code will be
 called once per loop, which can slow down libev. If set to \f(CW3\fR, then the
 verification code will be called very frequently, which will slow down
 libev considerably.
+.Sp
+Verification errors are reported via C's \f(CW\*(C`assert\*(C'\fR mechanism, so if you
+disable that (e.g. by defining \f(CW\*(C`NDEBUG\*(C'\fR) then no errors will be reported.
 .Sp
 The default is \f(CW1\fR, unless \f(CW\*(C`EV_FEATURES\*(C'\fR overrides it, in which case it
 will be \f(CW0\fR.

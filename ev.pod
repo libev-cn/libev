@@ -161,9 +161,13 @@ it will print a diagnostic message and abort (via the C<assert> mechanism,
 so C<NDEBUG> will disable this checking): these are programming errors in
 the libev caller and need to be fixed there.
 
-Libev also has a few internal error-checking C<assert>ions, and also has
-extensive consistency checking code. These do not trigger under normal
-circumstances, as they indicate either a bug in libev or worse.
+Via the C<EV_FREQUENT> macro you can compile in and/or enable extensive
+consistency checking code inside libev that can be used to check for
+internal inconsistencies, suually caused by application bugs.
+
+Libev also has a few internal error-checking C<assert>ions. These do not
+trigger under normal circumstances, as they indicate either a bug in libev
+or worse.
 
 
 =head1 GLOBAL FUNCTIONS
@@ -4974,6 +4978,9 @@ called. If set to C<2>, then the internal verification code will be
 called once per loop, which can slow down libev. If set to C<3>, then the
 verification code will be called very frequently, which will slow down
 libev considerably.
+
+Verification errors are reported via C's C<assert> mechanism, so if you
+disable that (e.g. by defining C<NDEBUG>) then no errors will be reported.
 
 The default is C<1>, unless C<EV_FEATURES> overrides it, in which case it
 will be C<0>.

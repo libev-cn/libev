@@ -129,10 +129,16 @@ kqueue_poll (EV_P_ ev_tstamp timeout)
                   if (fd_valid (fd))
                     kqueue_modify (EV_A_ fd, 0, anfds [fd].events);
                   else
-                    fd_kill (EV_A_ fd);
+                    {
+                      assert (("libev: kqueue found invalid fd", 0));
+                      fd_kill (EV_A_ fd);
+                    }
                 }
               else /* on all other errors, we error out on the fd */
-                fd_kill (EV_A_ fd);
+                {
+                  assert (("libev: kqueue found invalid fd", 0));
+                  fd_kill (EV_A_ fd);
+                }
             }
         }
       else

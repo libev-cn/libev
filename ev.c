@@ -3751,7 +3751,6 @@ ev_run (EV_P_ int flags)
             ev_feed_event (EV_A_ &pipe_w, EV_CUSTOM);
           }
 
-
         /* update ev_rt_now, do magic */
         time_update (EV_A_ waittime + sleeptime);
       }
@@ -3925,6 +3924,9 @@ ev_io_start (EV_P_ ev_io *w) EV_NOEXCEPT
   assert (("libev: ev_io_start called with negative fd", fd >= 0));
   assert (("libev: ev_io_start called with illegal event mask", !(w->events & ~(EV__IOFDSET | EV_READ | EV_WRITE))));
 
+#if EV_VERIFY >= 2
+  assert (("libev: ev_io_start called on watcher with invalid fd", fd_valid (fd)));
+#endif
   EV_FREQUENT_CHECK;
 
   ev_start (EV_A_ (W)w, 1);
@@ -3950,6 +3952,9 @@ ev_io_stop (EV_P_ ev_io *w) EV_NOEXCEPT
 
   assert (("libev: ev_io_stop called with illegal fd (must stay constant after start!)", w->fd >= 0 && w->fd < anfdmax));
 
+#if EV_VERIFY >= 2
+  assert (("libev: ev_io_stop called on watcher with invalid fd", fd_valid (w->fd)));
+#endif
   EV_FREQUENT_CHECK;
 
   wlist_del (&anfds[w->fd].head, (WL)w);

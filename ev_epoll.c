@@ -130,6 +130,8 @@ epoll_modify (EV_P_ int fd, int oev, int nev)
 
       return;
     }
+  else
+    assert (("libev: I/O watcher with invalid fd found in epoll_ctl", errno != EBADF && errno != ELOOP && errno != EINVAL));
 
   fd_kill (EV_A_ fd);
 
@@ -236,7 +238,7 @@ epoll_poll (EV_P_ ev_tstamp timeout)
 }
 
 static int
-ev_epoll_create (void)
+epoll_epoll_create (void)
 {
   int fd;
 
@@ -259,7 +261,7 @@ inline_size
 int
 epoll_init (EV_P_ int flags)
 {
-  if ((backend_fd = ev_epoll_create ()) < 0)
+  if ((backend_fd = epoll_epoll_create ()) < 0)
     return 0;
 
   backend_mintime = 1e-3; /* epoll does sometimes return early, this is just to avoid the worst */
@@ -286,7 +288,7 @@ epoll_fork (EV_P)
 {
   close (backend_fd);
 
-  while ((backend_fd = ev_epoll_create ()) < 0)
+  while ((backend_fd = epoll_epoll_create ()) < 0)
     ev_syserr ("(libev) epoll_create");
 
   fd_rearm_all (EV_A);
